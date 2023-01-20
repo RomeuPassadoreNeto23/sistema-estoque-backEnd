@@ -22,7 +22,7 @@ public class ConfiguracaoApp implements WebMvcConfigurer {
 		dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
 		dataSource.setUrl("jdbc:mysql://localhost:3307/loja");
 		dataSource.setUsername("root");
-		dataSource.setPassword("");
+		dataSource.setPassword("root");
 
 		return dataSource;
 	}
