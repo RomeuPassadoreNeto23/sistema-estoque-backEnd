@@ -82,7 +82,7 @@ public class Pedido {
 
 	}
 
-	// metodo que criptografia o enderececo, ,utilizando o proprio setendereco
+	// metodo que criptografia o endereço,utilizando o proprio setendereco
 	public void setendereco(String endereco) {
 		BasicTextEncryptor textEncryptor = new BasicTextEncryptor();
 

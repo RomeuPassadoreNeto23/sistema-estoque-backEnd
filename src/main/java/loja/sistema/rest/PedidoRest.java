@@ -1,6 +1,5 @@
 package loja.sistema.rest;
 
-import java.security.PublicKey;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;

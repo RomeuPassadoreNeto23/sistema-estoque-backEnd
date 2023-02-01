@@ -15,13 +15,14 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
-	private int quantidadeEmEstoque;
+	private Integer quantidadeEmEstoque;
 	@Column(columnDefinition = "VARCHAR(512)")
 	private String descricaoDoProduct;
 	private Double precoDoProduct;
 	@Column(columnDefinition = "LONGTEXT")
 	private String img;
 	private String codProduct;
+	
 	
 
 	
