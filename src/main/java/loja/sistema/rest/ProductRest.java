@@ -102,7 +102,7 @@ public class ProductRest {
 	}
 
 	// api para buscar produto
-	@RequestMapping(value = "/buscarProduct/", method = RequestMethod.POST)
+	@RequestMapping(value = "/buscar/", method = RequestMethod.POST)
 	public ResponseEntity<?> busacrProduct(@RequestBody String parametro) {
 		List<Product> products = repository.buscarPorduct(parametro.replace("\"", ""));
 		return ResponseEntity.ok(products);

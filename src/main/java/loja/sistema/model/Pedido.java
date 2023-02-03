@@ -2,6 +2,8 @@ package loja.sistema.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -9,6 +11,7 @@ import javax.persistence.ManyToOne;
 
 import org.jasypt.util.text.BasicTextEncryptor;
 
+import loja.sistema.Enum.Status;
 import lombok.Data;
 
 @Data
@@ -43,8 +46,10 @@ public class Pedido {
 	private String cpf;
 	@ManyToOne
 	private Product product;
+	@Enumerated(EnumType.STRING)
+	private Status status;
 
-	private int quantidadeDeProduct;
+	private Integer quantidadeDeProduct;
 
 	// metodo que descriptografia o telefone ,utilizando o proprio getTelefone
 	public String getTelefone() {
@@ -190,7 +195,7 @@ public class Pedido {
 
 		String cidadeCrip = textEncryptor.encrypt(cidade);
 
-		this.bairro = cidadeCrip;
+		this.cidade = cidadeCrip;
 
 	}
 	// metodo que descriptografia o cep ,utilizando o proprio getcep
@@ -266,5 +271,6 @@ public class Pedido {
 			this.cpf = cpfCrip;
 
 		}
+		
 
 }
