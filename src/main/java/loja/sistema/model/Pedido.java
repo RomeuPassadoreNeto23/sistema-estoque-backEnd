@@ -21,9 +21,7 @@ public class Pedido {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	private String nomeDoCliente;
-
-	private String sobrenomeDoCliente;
+	private String nomeCompleto;
 
 	private String codPedido;
 
@@ -46,8 +44,11 @@ public class Pedido {
 	private String cpf;
 	@ManyToOne
 	private Product product;
-	@Enumerated(EnumType.STRING)
+	@Enumerated(EnumType.STRING) 
 	private Status status;
+	
+	private Double precoTotal;
+	
 
 	private Integer quantidadeDeProduct;
 
