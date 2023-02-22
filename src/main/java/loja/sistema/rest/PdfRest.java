@@ -38,10 +38,13 @@ public class PdfRest {
 	@GetMapping(value = "/pedido/{id}")
 	public String pdfPedidoById(@PathVariable("id") Long id, HttpServletRequest request, HttpServletResponse response) {
 		Pedido pedido = new Pedido();
+		System.out.println(id);
 		pedido = pedidoRepository.findById(id).get();
+		System.out.println(pedido);
+		
 		try {
 			JasperReport report = JasperCompileManager
-					.compileReport(getClass().getResourceAsStream("/relatorio/PdfPedido.jrxml"));
+					.compileReport(getClass().getResourceAsStream("/loja/sistema/relatorio/PdfPedido.jrxml"));
 			Map<String, Object> map = new HashMap<>();
 			map.put("nomeCompleto", pedido.getNomeCompleto());
 			map.put("quantidadeDeProduct", pedido.getQuantidadeDeProduct());

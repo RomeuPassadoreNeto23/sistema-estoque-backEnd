@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -40,7 +42,7 @@ public class PedidoRest {
 
 	// api para criar pedido
 	@RequestMapping(value = "", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Object> criandoPedido(@RequestBody Pedido pedido) {
+	public ResponseEntity<Object> criandoPedido(@RequestBody Pedido pedido , HttpServletRequest request) {
 		System.out.println(pedido);
 
 		if (pedido.getProduct() == null || pedido.getbairro().equals("") || pedido.getNomeCompleto().equals("")
