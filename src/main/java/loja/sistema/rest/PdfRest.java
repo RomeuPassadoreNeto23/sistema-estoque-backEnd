@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.bouncycastle.pqc.crypto.qtesla.QTeslaKeyEncodingTests;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.common.io.Files;
 
 import loja.sistema.model.Pedido;
+import loja.sistema.model.Product;
 import loja.sistema.repository.PedidoRepository;
 import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
@@ -35,12 +37,15 @@ public class PdfRest {
 	@Autowired
 	private PedidoRepository pedidoRepository;
 
-	@GetMapping(value = "/pedido/{id}")
+	@GetMapping(value = "/pedido/{id}/Pedido.pdf")
 	public String pdfPedidoById(@PathVariable("id") Long id, HttpServletRequest request, HttpServletResponse response) {
 		Pedido pedido = new Pedido();
 		System.out.println(id);
 		pedido = pedidoRepository.findById(id).get();
 		System.out.println(pedido);
+		HashMap<Object, Object> teste = new HashMap<>();
+		teste.put(pedido.getProduct(), teste);
+		System.out.println(teste);
 		
 		try {
 			JasperReport report = JasperCompileManager
@@ -48,8 +53,8 @@ public class PdfRest {
 			Map<String, Object> map = new HashMap<>();
 			map.put("nomeCompleto", pedido.getNomeCompleto());
 			map.put("quantidadeDeProduct", pedido.getQuantidadeDeProduct());
-			map.put("descricaoDoProduct", pedido.getProduct().getDescricaoDoProduct());
-			map.put("precoDoProduct", pedido.getProduct().getPrecoDoProduct());
+			map.put("descricaoDoProduct", pedido.getProduct());
+			map.put("precoDoProduct",  pedido.getProduct());
 			map.put("precoTotal", pedido.getPrecoTotal());
 
 			String name = "PEDIDO.pdf";

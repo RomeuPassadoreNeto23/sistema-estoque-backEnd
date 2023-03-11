@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import loja.sistema.model.Pedido;
 
 public interface PedidoRepository extends PagingAndSortingRepository<Pedido, Long> {
-	@Query("SELECT p FROM Pedido p ORDER BY p.id desc")
+	
       List<Pedido> findAll();
 	@Query("SELECT pedido FROM Pedido pedido WHERE pedido.nomeCompleto LIKE %:p% OR pedido.codPedido LIKE %:p% ORDER BY pedido.nomeCompleto asc ")
 	List<Pedido> buscarPedido(@Param("p") String parametro);

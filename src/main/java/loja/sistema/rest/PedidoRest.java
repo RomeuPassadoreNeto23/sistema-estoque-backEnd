@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import loja.sistema.model.Pedido;
+import loja.sistema.model.Product;
 import loja.sistema.repository.PedidoRepository;
 import loja.sistema.repository.ProductRepository;
 
@@ -42,9 +44,9 @@ public class PedidoRest {
 
 	// api para criar pedido
 	@RequestMapping(value = "", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Object> criandoPedido(@RequestBody Pedido pedido , HttpServletRequest request) {
+	public ResponseEntity<Pedido> criandoPedido(@RequestBody Pedido pedido , HttpServletRequest request) {
 		System.out.println(pedido);
-
+        /*
 		if (pedido.getProduct() == null || pedido.getbairro().equals("") || pedido.getNomeCompleto().equals("")
 				|| pedido.getTelefone().equals("") || pedido.getnumero().equals("") || pedido.getendereco().equals("")
 				|| pedido.getbairro().equals("") || pedido.getcep().equals("") || pedido.getcidade().equals("")
@@ -52,13 +54,14 @@ public class PedidoRest {
 			return ResponseEntity.status(HttpStatus.CONFLICT).build();
 
 		}
-
-		if (pedido.getProduct().getQuantidadeEmEstoque() <= 0 || pedido.getQuantidadeDeProduct() <= 0) {
+*/
+	/*	if (pedido.getProduct().getQuantidadeEmEstoque() <= 0 || pedido.getQuantidadeDeProduct() <= 0) {
 			return ResponseEntity.status(HttpStatus.CHECKPOINT).build();
 		}
 		Integer valorFifinal = pedido.getProduct().getQuantidadeEmEstoque() - pedido.getQuantidadeDeProduct();
 		pedido.getProduct().setQuantidadeEmEstoque(valorFifinal);
 		productRepository.save(pedido.getProduct());
+		*/
 		String numerico = "0123456789";
 		// create random string builder
 		StringBuilder sb = new StringBuilder();
@@ -85,13 +88,21 @@ public class PedidoRest {
 		String randomrandomNumero = sb.toString();
 		String codigoPedido = pedido.getNomeCompleto() + ":" + randomrandomNumero;
 		pedido.setCodPedido(codigoPedido);
-
+        /*
 		Double precoFinal = pedido.getProduct().getPrecoDoProduct() * pedido.getQuantidadeDeProduct();
 		System.out.println(precoFinal);
 		pedido.setPrecoTotal(precoFinal);
-
-		repository.save(pedido);
-		return ResponseEntity.created(URI.create("/" + pedido.getId())).body(pedido);
+         */
+		 
+		 
+		  
+		  
+		  repository.save(pedido);
+		  
+		  
+		
+		
+	 return ResponseEntity.created(URI.create("/" + pedido.getId())).body(pedido);
 
 	}
 
@@ -105,6 +116,7 @@ public class PedidoRest {
 					System.out.println("pedi: " + pedido);
 
 					if (pedido.getStatus().equals(pedido.getStatus().CANCELADA)) {
+					/*
 						System.out.println("oi1");
 						Integer valorFifinal = pedido.getProduct().getQuantidadeEmEstoque()
 								+ pedido.getQuantidadeDeProduct();
@@ -112,7 +124,7 @@ public class PedidoRest {
 						productRepository.save(pedido.getProduct());
 						repository.deleteById(idPedido);
 						return ResponseEntity.noContent().build();
-
+                          */
 					} else if (pedido.getStatus().equals(pedido.getStatus().FECHADA)) {
 
 						repository.deleteById(idPedido);
@@ -144,13 +156,15 @@ public class PedidoRest {
 				if (pedido.getQuantidadeDeProduct() == pedido2.getQuantidadeDeProduct()) {
 					repository.save(pedido);
 				} else if (pedido.getQuantidadeDeProduct() > pedido2.getQuantidadeDeProduct()) {
+					/*
 					Integer valorFifinal = pedido.getProduct().getQuantidadeEmEstoque()
 							- pedido.getQuantidadeDeProduct();
 					pedido.getProduct().setQuantidadeEmEstoque(valorFifinal);
 					productRepository.save(pedido.getProduct());
 					repository.save(pedido);
-
+                   */
 				} else {
+					/*
 					Integer valorFifinal = pedido.getProduct().getQuantidadeEmEstoque()
 							+ pedido.getQuantidadeDeProduct();
 					pedido.getProduct().setQuantidadeEmEstoque(valorFifinal);
@@ -158,7 +172,7 @@ public class PedidoRest {
 					Double precoFinal = pedido.getProduct().getPrecoDoProduct() * pedido.getQuantidadeDeProduct();
 					System.out.println(precoFinal);
 					pedido.setPrecoTotal(precoFinal);
-
+                    */
 					repository.save(pedido);
 
 				}

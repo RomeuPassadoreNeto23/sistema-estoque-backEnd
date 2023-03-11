@@ -1,5 +1,9 @@
 package loja.sistema.model;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -7,7 +11,10 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import org.jasypt.util.text.BasicTextEncryptor;
 
@@ -16,6 +23,7 @@ import lombok.Data;
 
 @Data
 @Entity
+
 public class Pedido {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,15 +50,42 @@ public class Pedido {
 	private String estado;
 
 	private String cpf;
-	@ManyToOne
-	private Product product;
-	@Enumerated(EnumType.STRING) 
+	// Definindo uma relação um para muitos
+	@OneToMany
+	@JoinColumn(name="pididos_id")
+	private List<Product> product;
+	@Enumerated(EnumType.STRING)
 	private Status status;
-	
+
 	private Double precoTotal;
-	
 
 	private Integer quantidadeDeProduct;
+
+	/*
+	 * public Pedido(String nomeCompleto, String codPedido, String telefone, String
+	 * endereco, String numero, String complemento, String bairro, String cidade,
+	 * String cep, String estado, String cpf, Set<Product> set) { BasicTextEncryptor
+	 * textEncryptor = new BasicTextEncryptor();
+	 * textEncryptor.setPassword("opensezame"); String TelefoneCrip =
+	 * textEncryptor.encrypt(telefone); String enderecoCrip =
+	 * textEncryptor.encrypt(endereco); String numeroCrip =
+	 * textEncryptor.encrypt(numero); String complementoCrip =
+	 * textEncryptor.encrypt(complemento); String bairroCrip =
+	 * textEncryptor.encrypt(bairro); String cidadeCrip =
+	 * textEncryptor.encrypt(cidade); String cepCrip = textEncryptor.encrypt(cep);
+	 * String estadoCrip = textEncryptor.encrypt(estado); String cpfCrip =
+	 * textEncryptor.encrypt(cpf);
+	 * 
+	 * this.nomeCompleto = nomeCompleto; this.codPedido = codPedido; this.telefone =
+	 * TelefoneCrip ; this.endereco = enderecoCrip; this.numero = numeroCrip;
+	 * this.complemento = complementoCrip; this.bairro = bairroCrip; this.cidade =
+	 * cidadeCrip ; this.cep = cepCrip; this.estado = estadoCrip ; this.cpf =
+	 * cpfCrip; this.product.addAll(set);
+	 * set.stream().findAny().get().getPedidos().add(this);
+	 * 
+	 * 
+	 * }
+	 */
 
 	// metodo que descriptografia o telefone ,utilizando o proprio getTelefone
 	public String getTelefone() {
@@ -199,6 +234,7 @@ public class Pedido {
 		this.cidade = cidadeCrip;
 
 	}
+
 	// metodo que descriptografia o cep ,utilizando o proprio getcep
 	public String getcep() {
 
@@ -211,6 +247,7 @@ public class Pedido {
 		return cepDesc;
 
 	}
+
 	// metodo que criptografia o cep, utilizando o proprio setcep
 	public void setcep(String cep) {
 		BasicTextEncryptor textEncryptor = new BasicTextEncryptor();
@@ -222,6 +259,7 @@ public class Pedido {
 		this.cep = cepCrip;
 
 	}
+
 	// metodo que descriptografia o estado ,utilizando o proprio getestado
 	public String getestado() {
 
@@ -234,6 +272,7 @@ public class Pedido {
 		return estadoDesc;
 
 	}
+
 	// metodo que criptografia o estado, utilizando o proprio setcep
 	public void setestado(String estado) {
 		BasicTextEncryptor textEncryptor = new BasicTextEncryptor();
@@ -245,33 +284,30 @@ public class Pedido {
 		this.estado = estadoCrip;
 
 	}
+
 	// metodo que descriptografia o cpf ,utilizando o proprio getcpf
-		public String getcpf() {
+	public String getcpf() {
 
-			BasicTextEncryptor textEncryptor = new BasicTextEncryptor();
+		BasicTextEncryptor textEncryptor = new BasicTextEncryptor();
 
-			textEncryptor.setPassword("opensezame");
+		textEncryptor.setPassword("opensezame");
 
-			String cpfDesc = textEncryptor.decrypt(this.cpf);
+		String cpfDesc = textEncryptor.decrypt(this.cpf);
 
-			return cpfDesc;
+		return cpfDesc;
 
-		}
-		
-		
-		
-		
-		// metodo que criptografia o cpf, utilizando o proprio setcpf
-		public void setcpf(String cpf) {
-			BasicTextEncryptor textEncryptor = new BasicTextEncryptor();
+	}
 
-			textEncryptor.setPassword("opensezame");
+	// metodo que criptografia o cpf, utilizando o proprio setcpf
+	public void setcpf(String cpf) {
+		BasicTextEncryptor textEncryptor = new BasicTextEncryptor();
 
-			String cpfCrip = textEncryptor.encrypt(cpf);
+		textEncryptor.setPassword("opensezame");
 
-			this.cpf = cpfCrip;
+		String cpfCrip = textEncryptor.encrypt(cpf);
 
-		}
-		
+		this.cpf = cpfCrip;
+
+	}
 
 }

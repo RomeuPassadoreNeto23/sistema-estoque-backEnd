@@ -5,11 +5,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import lombok.Data;
 
 @Data
 @Entity
+
 public class Product {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,6 +24,11 @@ public class Product {
 	@Column(columnDefinition = "LONGTEXT")
 	private String img;
 	private String codProduct;
+	
+    // Definindo uma relação  muitos para um 
+	@ManyToOne
+	private Pedido pedidos  ;
+	
 	
 	
 
